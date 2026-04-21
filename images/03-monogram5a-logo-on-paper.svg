@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 68" width="300" height="68">
+  <svg viewBox="0 0 68 68" fill="none" width="68" height="68">
+    <rect x="2" y="2" width="64" height="64" rx="16" fill="#1a1f2b"/>
+    <path d="M34 16 L18 16 L18 30 Q26 28 32 33 Q38 38 36 44 Q34 50 27 51 Q20 52 16 48" stroke="#F59E0B" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <circle cx="42" cy="44" r="4.2" stroke="#FB7185" stroke-width="2.6" fill="none"/>
+    <path d="M46.2 40 L46.2 50" stroke="#FB7185" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="M51 50 L51 40 M51 42 Q53.5 39.5 56 42 L56 50 M56 42 Q58.5 39.5 61 42 L61 50" stroke="#FB7185" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <circle cx="61" cy="55" r="1.6" fill="#FB7185"/>
+  </svg>
+  <text x="84" y="32" font-family="'Space Grotesk',sans-serif" font-weight="600" font-size="24" letter-spacing="-0.24" fill="#1a1f2b">Projects</text>
+  <text x="84" y="52" font-family="'JetBrains Mono',monospace" font-size="10" letter-spacing="2.2" fill="#7b8396">BUILT BEFORE SUNRISE</text>
+</svg>
