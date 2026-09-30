@@ -1,0 +1,1775 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="color-scheme" content="light">
+    <meta name="theme-color" content="#f5f5f7">
+    <title>Rahmat Fajri · AI Engineer</title>
+    <meta name="description"
+        content="Rahmat Fajri: Senior AI Developer at ESSA Industries Indonesia, building production LLM systems, from multi-agent assistants and agentic RAG to on-premise vLLM serving and MLOps on Google Cloud. Based in West Jakarta.">
+    <meta property="og:title" content="Rahmat Fajri · AI Engineer">
+    <meta property="og:description"
+        content="Senior AI Developer with 5+ years designing, deploying and optimizing machine learning and generative AI systems at production scale.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rfajri27.github.io/">
+    <meta property="og:image" content="https://rfajri27.github.io/assets/profile.jpg">
+    <link rel="canonical" href="https://rfajri27.github.io/">
+    <link rel="icon"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23f5f5f7'/%3E%3Ctext x='32' y='42' font-family='-apple-system,Helvetica,Arial,sans-serif' font-size='28' font-weight='700' fill='%230066cc' text-anchor='middle'%3ERF%3C/text%3E%3C/svg%3E">
+    <style>
+        /*
+         * Two layers, per Apple's Liquid Glass model:
+         *  - Content layer: opaque white surfaces on a soft ambient canvas. No glass here.
+         *  - Functional layer: the floating navigation capsule (and the caption over the photo,
+         *    which is clear glass over media). These are the only glass surfaces.
+         * Brand color lives in the content layer (the garden-green and indigo blooms drawn
+         * from the profile photo), so the glass picks it up as the page scrolls beneath it.
+         */
+        :root {
+            /* Canvas and surfaces */
+            --canvas: #f5f5f7;
+            --surface: #ffffff;
+            --fill: #f2f2f5;
+            --fill-2: #e8e8ed;
+            --separator: rgba(60, 60, 67, .14);
+
+            /* Labels: 15.5:1, 5.1:1 on white / 4.7:1 on canvas */
+            --label: #1d1d1f;
+            --label-2: #424245;
+            --label-3: #6e6e73;
+
+            /* One accent, one meaning: interactive. 5.6:1 on white */
+            --accent: #0066cc;
+            --accent-hover: #0059b3;
+            --accent-soft: rgba(0, 102, 204, .1);
+
+            /* Status only: "current role". 5.4:1 on white */
+            --status: #1f7a35;
+            --status-soft: #e8f5ec;
+
+            /* Liquid Glass (regular) */
+            --glass-fill: rgba(255, 255, 255, .62);
+            --glass-border: rgba(255, 255, 255, .75);
+            --glass-edge: rgba(0, 0, 0, .06);
+            --glass-blur: blur(24px) saturate(1.6);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, .08), 0 1px 2px rgba(0, 0, 0, .06);
+
+            --radius-lg: 28px;
+            --radius: 20px;
+            --radius-sm: 12px;
+            --card-shadow: 0 1px 2px rgba(0, 0, 0, .04), 0 4px 20px rgba(0, 0, 0, .04);
+
+            --max: 1080px;
+            --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --ease: cubic-bezier(.32, .72, 0, 1);
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 96px;
+            -webkit-text-size-adjust: 100%
+        }
+
+        body {
+            margin: 0;
+            background: var(--canvas);
+            color: var(--label);
+            font: 17px/1.55 var(--font);
+            letter-spacing: -.01em;
+            -webkit-font-smoothing: antialiased
+        }
+
+        /* Content-layer color: soft blooms taken from the photo's garden and the navy vest */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            background:
+                radial-gradient(900px 520px at 8% -8%, rgba(52, 199, 89, .16), transparent 60%),
+                radial-gradient(760px 520px at 96% 4%, rgba(88, 86, 214, .13), transparent 62%),
+                radial-gradient(900px 600px at 50% 110%, rgba(0, 122, 255, .08), transparent 60%);
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none
+        }
+
+        a:hover {
+            text-decoration: underline;
+            text-underline-offset: 3px
+        }
+
+        :focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 3px;
+            border-radius: 10px
+        }
+
+        .skip {
+            position: absolute;
+            left: -999px;
+            top: 12px;
+            z-index: 100;
+            padding: 10px 16px;
+            border-radius: 999px;
+            background: var(--label);
+            color: #fff
+        }
+
+        .skip:focus {
+            left: 12px
+        }
+
+        .wrap {
+            width: min(100% - 48px, var(--max));
+            margin-inline: auto
+        }
+
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip: rect(0 0 0 0);
+            white-space: nowrap
+        }
+
+        /* ===== Functional layer: Liquid Glass navigation ===== */
+        .glass {
+            background: var(--glass-fill);
+            border: 1px solid var(--glass-border);
+            -webkit-backdrop-filter: var(--glass-blur);
+            backdrop-filter: var(--glass-blur);
+            box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255, 255, 255, .9), inset 0 0 0 .5px var(--glass-edge)
+        }
+
+        /* Scroll edge effect: content softens where it meets the bar */
+        .scroll-edge {
+            position: fixed;
+            z-index: 50;
+            left: 0;
+            right: 0;
+            top: 0;
+            height: 88px;
+            pointer-events: none;
+            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+            -webkit-mask-image: linear-gradient(#000 30%, transparent);
+            mask-image: linear-gradient(#000 30%, transparent);
+            background: linear-gradient(rgba(245, 245, 247, .7), rgba(245, 245, 247, 0))
+        }
+
+        .site-nav {
+            position: fixed;
+            z-index: 60;
+            top: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            width: min(100% - 32px, var(--max));
+            padding: 6px 6px 6px 18px;
+            border-radius: 999px
+        }
+
+        .site-brand {
+            flex: none;
+            margin-right: auto;
+            color: var(--label);
+            font: 600 17px/1 var(--font-display);
+            letter-spacing: -.02em;
+            white-space: nowrap
+        }
+
+        .site-brand:hover {
+            text-decoration: none
+        }
+
+        .site-menu {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 2px
+        }
+
+        .site-menu a {
+            position: relative;
+            z-index: 1;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            min-height: 36px;
+            padding: 0 14px;
+            border-radius: 999px;
+            color: var(--label-2);
+            font-size: 15px;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: color .2s
+        }
+
+        .site-menu a:hover {
+            color: var(--label);
+            text-decoration: none;
+            background: rgba(0, 0, 0, .04)
+        }
+
+        .site-menu a[aria-current] {
+            color: var(--label);
+            font-weight: 600
+        }
+
+        .site-menu a[aria-current]:hover {
+            background: none
+        }
+
+        .site-menu svg {
+            display: none
+        }
+
+        /* The selection pill that slides between tabs */
+        .nav-pill {
+            position: absolute;
+            z-index: 0;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, .9);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .1), inset 0 0 0 .5px rgba(0, 0, 0, .04);
+            opacity: 0;
+            transition: transform .45s var(--ease), width .45s var(--ease), opacity .2s
+        }
+
+
+        /* ===== Hero ===== */
+        .hero {
+            padding: 132px 0 56px
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.35fr) minmax(300px, .8fr);
+            grid-template-areas: "intro side" "actions side";
+            column-gap: 56px;
+            row-gap: 28px;
+            align-items: start
+        }
+
+        .hero-intro {
+            grid-area: intro;
+            align-self: end
+        }
+
+        .hero-actions {
+            grid-area: actions
+        }
+
+        .hero-side {
+            grid-area: side;
+            display: grid;
+            gap: 14px;
+            width: 100%;
+            max-width: 380px;
+            justify-self: end
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0 0 18px;
+            padding: 6px 14px 6px 10px;
+            border-radius: 999px;
+            background: var(--surface);
+            box-shadow: var(--card-shadow);
+            color: var(--label-2);
+            font-size: 14px;
+            font-weight: 500
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--status);
+            box-shadow: 0 0 0 4px var(--status-soft)
+        }
+
+        h1 {
+            margin: 0 0 18px;
+            font: 700 clamp(44px, 6.4vw, 72px)/1.02 var(--font-display);
+            letter-spacing: -.035em
+        }
+
+        h1 .soft {
+            display: block;
+            margin-top: 6px;
+            font-size: .56em;
+            line-height: 1.1;
+            letter-spacing: -.025em;
+            color: var(--label-3);
+            font-weight: 600
+        }
+
+        .lede {
+            max-width: 58ch;
+            margin: 0;
+            color: var(--label-2);
+            font-size: 19px;
+            line-height: 1.55
+        }
+
+        .lede b {
+            color: var(--label);
+            font-weight: 600
+        }
+
+        .cta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 48px;
+            padding: 0 22px;
+            border-radius: 999px;
+            background: var(--surface);
+            color: var(--accent);
+            font-size: 17px;
+            font-weight: 600;
+            box-shadow: var(--card-shadow), inset 0 0 0 1px var(--separator);
+            transition: transform .2s var(--ease), background .2s
+        }
+
+        .btn:hover {
+            text-decoration: none;
+            background: #fafafc
+        }
+
+        .btn:active {
+            transform: scale(.97)
+        }
+
+        .btn.primary {
+            background: var(--accent);
+            color: #fff;
+            box-shadow: 0 6px 18px rgba(0, 102, 204, .25)
+        }
+
+        .btn.primary:hover {
+            background: var(--accent-hover)
+        }
+
+        .btn svg {
+            width: 18px;
+            height: 18px
+        }
+
+        .social {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 6px;
+            margin: 20px 0 0 -12px;
+            padding: 0;
+            list-style: none
+        }
+
+        .social a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            min-height: 44px;
+            padding: 0 12px;
+            border-radius: 999px;
+            color: var(--label-2);
+            font-size: 15px;
+            font-weight: 500
+        }
+
+        .social a:hover {
+            color: var(--label);
+            background: rgba(0, 0, 0, .04);
+            text-decoration: none
+        }
+
+        .social svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor
+        }
+
+        /* Profile photo: the one place clear glass is correct, a caption floating over media */
+        .profile-card {
+            position: relative;
+            overflow: hidden;
+            margin: 0;
+            aspect-ratio: 4/5;
+            border-radius: var(--radius-lg);
+            background: #dfe8dc;
+            box-shadow: 0 30px 60px -20px rgba(31, 60, 40, .35), 0 2px 6px rgba(0, 0, 0, .06)
+        }
+
+        .profile-photo {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: 50% 38%;
+            transform: scale(1.2);
+            transform-origin: 50% 42%
+        }
+
+        .profile-badge {
+            position: absolute;
+            left: 12px;
+            right: 12px;
+            bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 20px;
+            /* Clear variant + 35% dimming over bright media, per Apple's guidance */
+            background: rgba(0, 0, 0, .35);
+            border: 1px solid rgba(255, 255, 255, .28);
+            -webkit-backdrop-filter: blur(14px) saturate(1.5);
+            backdrop-filter: blur(14px) saturate(1.5);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, .3);
+            color: #fff
+        }
+
+        .profile-badge strong {
+            display: block;
+            font-size: 15px;
+            font-weight: 600
+        }
+
+        .profile-badge span {
+            display: block;
+            font-size: 13px;
+            opacity: .92
+        }
+
+        .profile-badge svg {
+            flex: none;
+            width: 20px;
+            height: 20px
+        }
+
+        .glance {
+            padding: 16px;
+            border-radius: var(--radius);
+            background: var(--surface);
+            box-shadow: var(--card-shadow)
+        }
+
+        .glance h2 {
+            margin: 0 0 12px 4px;
+            color: var(--label-3);
+            font-size: 13px;
+            font-weight: 600
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 8px
+        }
+
+        .stat {
+            min-width: 0;
+            padding: 12px;
+            border-radius: var(--radius-sm);
+            background: var(--fill)
+        }
+
+        .stat b {
+            display: block;
+            font: 700 22px/1.1 var(--font-display);
+            letter-spacing: -.02em;
+            white-space: nowrap
+        }
+
+        .stat span {
+            display: block;
+            margin-top: 4px;
+            color: var(--label-3);
+            font-size: 13px;
+            line-height: 1.3
+        }
+
+        @media (max-width:860px) {
+            .hero {
+                padding-top: 64px
+            }
+
+            .hero-grid {
+                grid-template-columns: 1fr;
+                grid-template-areas: "intro" "side" "actions";
+                gap: 28px
+            }
+
+            .hero-side {
+                justify-self: center;
+                max-width: 400px
+            }
+        }
+
+        /* ===== Sections ===== */
+        section {
+            padding: 64px 0
+        }
+
+        .sec-head {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px 24px;
+            margin-bottom: 28px
+        }
+
+        h2.sec {
+            margin: 0 0 8px;
+            font: 700 clamp(30px, 4vw, 40px)/1.1 var(--font-display);
+            letter-spacing: -.03em
+        }
+
+        .sub {
+            max-width: 62ch;
+            margin: 0;
+            color: var(--label-3);
+            font-size: 17px
+        }
+
+        .card {
+            position: relative;
+            padding: 24px;
+            border-radius: var(--radius);
+            background: var(--surface);
+            box-shadow: var(--card-shadow);
+            transition: transform .35s var(--ease), box-shadow .35s var(--ease)
+        }
+
+        a.card:hover,
+        .card.lift:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .04), 0 16px 40px rgba(0, 0, 0, .08);
+            text-decoration: none
+        }
+
+        .card h3 {
+            margin: 0 0 8px;
+            font: 600 19px/1.3 var(--font-display);
+            letter-spacing: -.015em;
+            color: var(--label)
+        }
+
+        .card p {
+            margin: 0 0 14px;
+            color: var(--label-2);
+            font-size: 16px
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin: 0;
+            padding: 0;
+            list-style: none
+        }
+
+        .tag {
+            padding: 3px 10px;
+            border-radius: 999px;
+            background: var(--fill);
+            color: var(--label-2);
+            font-size: 13px;
+            font-weight: 500
+        }
+
+        /* Credentials */
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 0;
+            padding: 0;
+            list-style: none
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 18px 10px 12px;
+            border-radius: 22px;
+            background: var(--surface);
+            box-shadow: var(--card-shadow);
+            font-size: 15px;
+            color: var(--label)
+        }
+
+        .badge svg {
+            flex: none;
+            width: 22px;
+            height: 22px;
+            color: var(--label-3)
+        }
+
+        .badge small {
+            color: var(--label-3);
+            font-size: 15px
+        }
+
+        /* Experience: grouped, iOS-style inset list */
+        .timeline {
+            display: grid;
+            gap: 16px;
+            margin: 0;
+            padding: 0;
+            list-style: none
+        }
+
+        .job {
+            display: grid;
+            grid-template-columns: 180px minmax(0, 1fr);
+            gap: 8px 32px;
+            padding: 28px
+        }
+
+        .job .when {
+            color: var(--label-3);
+            font-size: 15px;
+            font-weight: 500;
+            font-variant-numeric: tabular-nums
+        }
+
+        .current-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+            padding: 3px 10px 3px 8px;
+            border-radius: 999px;
+            background: var(--status-soft);
+            color: var(--status);
+            font-size: 13px;
+            font-weight: 600
+        }
+
+        .current-label .status-dot {
+            box-shadow: none;
+            width: 7px;
+            height: 7px
+        }
+
+        .job h3 {
+            margin: 0;
+            font-size: 21px
+        }
+
+        .job .org {
+            margin: 2px 0 0;
+            color: var(--label-2);
+            font-size: 17px;
+            font-weight: 500
+        }
+
+        .job ul {
+            margin: 14px 0 0;
+            padding: 0;
+            list-style: none;
+            color: var(--label-2);
+            font-size: 16px
+        }
+
+        .job li {
+            position: relative;
+            padding: 10px 0 10px 22px;
+            border-top: 1px solid var(--separator)
+        }
+
+        .job li:first-child {
+            border-top: 0;
+            padding-top: 4px
+        }
+
+        .job li::before {
+            content: "";
+            position: absolute;
+            left: 4px;
+            top: 1.05em;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--fill-2)
+        }
+
+        .job li:first-child::before {
+            top: calc(1.05em - 6px)
+        }
+
+        .job li b {
+            color: var(--label);
+            font-weight: 600
+        }
+
+        @media (max-width:760px) {
+            .job {
+                grid-template-columns: 1fr;
+                padding: 22px
+            }
+        }
+
+        /* Projects */
+        .project-icon {
+            display: grid;
+            place-items: center;
+            width: 44px;
+            height: 44px;
+            margin-bottom: 16px;
+            border-radius: 12px;
+            background: var(--fill);
+            color: var(--label-2)
+        }
+
+        .project-icon svg {
+            width: 22px;
+            height: 22px
+        }
+
+        .card .where {
+            margin: -4px 0 10px;
+            color: var(--label-3);
+            font-size: 14px;
+            font-weight: 500
+        }
+
+        /* Writing */
+        a.card {
+            display: flex;
+            flex-direction: column;
+            color: inherit
+        }
+
+        .kicker {
+            margin: 0 0 10px !important;
+            color: var(--label-3) !important;
+            font-size: 13px !important;
+            font-weight: 600
+        }
+
+        .read-more {
+            margin-top: auto;
+            padding-top: 6px;
+            color: var(--accent);
+            font-size: 15px;
+            font-weight: 600
+        }
+
+        a.card:hover .read-more {
+            text-decoration: underline;
+            text-underline-offset: 3px
+        }
+
+        .writing-grid {
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr))
+        }
+
+        .card.feature {
+            grid-column: 1/-1;
+            padding: 32px;
+            overflow: hidden;
+            background:
+                radial-gradient(520px 260px at 100% 0%, rgba(0, 102, 204, .09), transparent 70%),
+                radial-gradient(420px 240px at 0% 100%, rgba(52, 199, 89, .09), transparent 70%),
+                var(--surface)
+        }
+
+        .card.feature h3 {
+            max-width: 26ch;
+            font-size: clamp(24px, 3vw, 30px);
+            letter-spacing: -.025em
+        }
+
+        .card.feature p {
+            max-width: 66ch;
+            font-size: 17px
+        }
+
+        /* Achievements */
+        .awards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+            gap: 16px;
+            margin: 0;
+            padding: 0;
+            list-style: none
+        }
+
+        .award {
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr) auto;
+            align-items: center;
+            gap: 16px;
+            padding: 20px 24px
+        }
+
+        .award h3 {
+            margin: 0 0 2px
+        }
+
+        .award p {
+            margin: 0;
+            color: var(--label-3);
+            font-size: 15px
+        }
+
+        .award-icon {
+            display: grid;
+            place-items: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: var(--fill);
+            color: var(--label-2)
+        }
+
+        .award-icon svg {
+            width: 22px;
+            height: 22px
+        }
+
+        .award .yr {
+            color: var(--label-3);
+            font-size: 15px;
+            font-weight: 500;
+            font-variant-numeric: tabular-nums
+        }
+
+        /* Skills + Education */
+        .two {
+            display: grid;
+            grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+            gap: 40px
+        }
+
+        @media (max-width:860px) {
+            .two {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .group {
+            overflow: hidden;
+            border-radius: var(--radius);
+            background: var(--surface);
+            box-shadow: var(--card-shadow)
+        }
+
+        .group-row {
+            padding: 18px 22px;
+            border-top: 1px solid var(--separator)
+        }
+
+        .group-row:first-child {
+            border-top: 0
+        }
+
+        .group-row h3 {
+            margin: 0 0 10px;
+            color: var(--label-3);
+            font-size: 13px;
+            font-weight: 600
+        }
+
+        .edu-row {
+            display: grid;
+            gap: 2px
+        }
+
+        .edu-row h3 {
+            margin: 0;
+            color: var(--label);
+            font: 600 17px/1.35 var(--font-display)
+        }
+
+        .edu-row .meta {
+            color: var(--label-2);
+            font-size: 15px
+        }
+
+        .edu-row .meta-2 {
+            color: var(--label-3);
+            font-size: 15px
+        }
+
+        .edu-row p {
+            margin: 6px 0 0;
+            color: var(--label-2);
+            font-size: 15px
+        }
+
+        .col-title {
+            margin: 0 0 16px;
+            font: 700 clamp(30px, 4vw, 40px)/1.1 var(--font-display);
+            letter-spacing: -.03em
+        }
+
+        /* Contact */
+        .contact-card {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            align-items: center;
+            gap: 24px 40px;
+            padding: 40px;
+            border-radius: var(--radius-lg);
+            background:
+                radial-gradient(600px 300px at 0% 0%, rgba(52, 199, 89, .12), transparent 70%),
+                radial-gradient(600px 300px at 100% 100%, rgba(88, 86, 214, .1), transparent 70%),
+                var(--surface);
+            box-shadow: var(--card-shadow)
+        }
+
+        .contact-card h2 {
+            margin: 0 0 10px
+        }
+
+        @media (max-width:760px) {
+            .contact-card {
+                grid-template-columns: 1fr;
+                padding: 28px
+            }
+        }
+
+        /* Footer */
+        .site-footer {
+            padding: 32px 0 48px;
+            color: var(--label-3);
+            font-size: 14px
+        }
+
+        .site-footer__inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px 24px;
+            padding-top: 24px;
+            border-top: 1px solid var(--separator)
+        }
+
+        .site-footer__links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 20px
+        }
+
+        .site-footer__links a {
+            display: inline-flex;
+            align-items: center;
+            min-height: 44px;
+            color: var(--label-2)
+        }
+
+        /* ===== Compact width: the nav becomes a bottom tab bar within thumb reach ===== */
+        @media (max-width:720px) {
+            html {
+                scroll-padding-top: 24px
+            }
+
+            .wrap {
+                width: min(100% - 32px, var(--max))
+            }
+
+            .scroll-edge {
+                top: auto;
+                bottom: 0;
+                height: 120px;
+                -webkit-mask-image: linear-gradient(transparent, #000 60%);
+                mask-image: linear-gradient(transparent, #000 60%);
+                background: linear-gradient(rgba(245, 245, 247, 0), rgba(245, 245, 247, .7))
+            }
+
+            .site-nav {
+                top: auto;
+                bottom: calc(10px + env(safe-area-inset-bottom));
+                width: min(100% - 20px, 480px);
+                padding: 5px
+            }
+
+            .site-brand {
+                display: none
+            }
+
+            .site-menu {
+                flex: 1;
+                justify-content: space-between
+            }
+
+            .site-menu a {
+                flex: 1;
+                flex-direction: column;
+                justify-content: center;
+                gap: 2px;
+                min-height: 54px;
+                padding: 4px 2px;
+                font-size: 11px;
+                font-weight: 600;
+                color: var(--label-3)
+            }
+
+            .site-menu a[aria-current] {
+                color: var(--accent)
+            }
+
+            .site-menu svg {
+                display: block;
+                width: 22px;
+                height: 22px
+            }
+
+            .hero {
+                padding-top: 40px
+            }
+
+            h1 {
+                font-size: clamp(40px, 12vw, 52px)
+            }
+
+            .lede {
+                font-size: 17px
+            }
+
+            section {
+                padding: 48px 0
+            }
+
+            .card.feature {
+                padding: 24px
+            }
+
+            .site-footer {
+                padding-bottom: calc(110px + env(safe-area-inset-bottom))
+            }
+        }
+
+        @media (max-width:400px) {
+            .stats {
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 6px
+            }
+
+            .stat {
+                padding: 10px 8px
+            }
+
+            .stat b {
+                font-size: 19px
+            }
+        }
+
+        /* ===== Accessibility states ===== */
+        @media (prefers-reduced-transparency:reduce) {
+
+            .glass,
+            .profile-badge {
+                -webkit-backdrop-filter: none;
+                backdrop-filter: none
+            }
+
+            .glass {
+                background: #fbfbfd
+            }
+
+            .profile-badge {
+                background: rgba(0, 0, 0, .72)
+            }
+
+            .scroll-edge {
+                display: none
+            }
+        }
+
+        @media (prefers-contrast:more) {
+            :root {
+                --label-2: #1d1d1f;
+                --label-3: #3a3a3c;
+                --separator: rgba(0, 0, 0, .4);
+                --glass-fill: rgba(255, 255, 255, .95);
+                --glass-edge: rgba(0, 0, 0, .5)
+            }
+
+            .card,
+            .group,
+            .badge,
+            .glance,
+            .eyebrow,
+            .contact-card {
+                box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .45)
+            }
+
+            .tag,
+            .stat {
+                box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .3)
+            }
+        }
+
+        @media (prefers-reduced-motion:reduce) {
+            html {
+                scroll-behavior: auto
+            }
+
+            *,
+            *::before,
+            *::after {
+                transition: none !important;
+                animation: none !important
+            }
+
+            a.card:hover,
+            .card.lift:hover {
+                transform: none
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <div class="scroll-edge" aria-hidden="true"></div>
+
+    <header class="site-nav glass">
+        <a class="site-brand" href="#top">Rahmat Fajri</a>
+        <nav class="site-menu" aria-label="Site">
+            <span class="nav-pill" aria-hidden="true"></span>
+            <a href="#experience"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="3" y="7" width="18" height="13" rx="3" />
+                    <path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7M3 12.5h18" />
+                </svg>Experience</a>
+            <a href="#projects"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="4" y="9" width="16" height="11" rx="3" />
+                    <path d="M6.5 6h11M9 3h6" />
+                </svg>Projects</a>
+            <a href="#writing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M6 3h8l4 4v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z" />
+                    <path d="M14 3v4h4M8 12h8M8 16h5" />
+                </svg>Writing</a>
+            <a href="#skills"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path
+                        d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9L12 3zM18.5 15l.8 1.9 1.9.8-1.9.8-.8 1.9-.8-1.9-1.9-.8 1.9-.8.8-1.9z" />
+                </svg>Skills</a>
+            <a href="#contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="3" y="5" width="18" height="14" rx="3" />
+                    <path d="M4 7l8 6 8-6" />
+                </svg>Contact</a>
+        </nav>
+    </header>
+
+    <div class="hero" id="top">
+        <div class="wrap hero-grid">
+            <div class="hero-intro">
+                <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span>Senior AI Developer · ESSA
+                    Industries
+                    Indonesia</p>
+                <h1>Rahmat Fajri <span class="soft">builds LLM systems that hold up in production.</span></h1>
+                <p class="lede">AI/ML engineer with <b>5+ years</b> designing, deploying, and optimizing machine
+                    learning and generative AI systems at production scale, including <b>multi-agent systems</b> and
+                    <b>agentic RAG</b> with LangGraph and LangChain, <b>open-source LLM serving with vLLM</b>, and
+                    end-to-end ML pipelines on Google Cloud Platform. I turn complex business requirements into
+                    scalable technical solutions.
+                </p>
+            </div>
+            <div class="hero-actions">
+                <div class="cta">
+                    <a class="btn primary" href="mailto:rfajri912@gmail.com"><svg viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            aria-hidden="true">
+                            <rect x="3" y="5" width="18" height="14" rx="3" />
+                            <path d="M4 7l8 6 8-6" />
+                        </svg>Get in Touch</a>
+                    <a class="btn" href="#projects">See My Work</a>
+                </div>
+                <ul class="social" aria-label="Profiles">
+                    <li><a href="https://www.linkedin.com/in/rfajri912" rel="me noopener" target="_blank"><svg
+                                viewBox="0 0 24 24" aria-hidden="true">
+                                <path
+                                    d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.2 8h4.6v14H.2V8zm7.6 0h4.4v1.9h.1c.6-1.1 2.1-2.3 4.3-2.3 4.6 0 5.4 3 5.4 6.9V22h-4.6v-6.6c0-1.6 0-3.6-2.2-3.6s-2.5 1.7-2.5 3.5V22H7.8V8z" />
+                            </svg>LinkedIn</a></li>
+                    <li><a href="https://github.com/rfajri27" rel="me noopener" target="_blank"><svg viewBox="0 0 24 24"
+                                aria-hidden="true">
+                                <path
+                                    d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z" />
+                            </svg>GitHub</a></li>
+                    <li><a href="https://rfajri.medium.com/" rel="me noopener" target="_blank"><svg viewBox="0 0 24 24"
+                                aria-hidden="true">
+                                <path
+                                    d="M13.5 12a6.8 6.8 0 1 1-13.6 0 6.8 6.8 0 0 1 13.6 0zm7.4 0c0 3.5-1.5 6.4-3.4 6.4s-3.4-2.9-3.4-6.4 1.5-6.4 3.4-6.4 3.4 2.9 3.4 6.4zM24 12c0 3.2-.5 5.7-1.2 5.7s-1.2-2.5-1.2-5.7.5-5.7 1.2-5.7S24 8.8 24 12z" />
+                            </svg>Medium</a></li>
+                </ul>
+            </div>
+            <aside class="hero-side" aria-label="Profile and career highlights">
+                <figure class="profile-card">
+                    <img class="profile-photo" src="assets/profile.jpg" width="800" height="800"
+                        alt="Rahmat Fajri standing in a garden, wearing a navy vest over a white shirt" decoding="async"
+                        fetchpriority="high">
+                    <figcaption class="profile-badge">
+                        <div><strong>Jakarta - Indonesia</strong><span>AI/ML Engineer</span></div>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M12 21s-7-6.1-7-11.5a7 7 0 0 1 14 0C19 14.9 12 21 12 21z" />
+                            <circle cx="12" cy="9.5" r="2.5" />
+                        </svg>
+                    </figcaption>
+                </figure>
+                <div class="glance">
+                    <h2>At a Glance</h2>
+                    <div class="stats">
+                        <div class="stat"><b>5+ yrs</b><span>AI/ML experience</span></div>
+                        <div class="stat"><b>vLLM</b><span>On-prem LLM serving</span></div>
+                        <div class="stat"><b>3</b><span>Innovation awards</span></div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <main id="main">
+
+        <section id="certs" aria-labelledby="certs-h">
+            <div class="wrap">
+                <div class="sec-head">
+                    <div>
+                        <h2 class="sec" id="certs-h">Credentials</h2>
+                        <p class="sub">Certifications in machine learning development and deployment.</p>
+                    </div>
+                </div>
+                <ul class="badges">
+                    <li class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path
+                                d="M12 3l2.2 1.6 2.7-.1.9 2.6 2.2 1.6-.8 2.6.8 2.6-2.2 1.6-.9 2.6-2.7-.1L12 21l-2.2-1.6-2.7.1-.9-2.6L4 15.3l.8-2.6L4 10.1l2.2-1.6.9-2.6 2.7.1L12 3z" />
+                            <path d="M9 12l2 2 4-4" />
+                        </svg><span>TensorFlow Developer Certificate <small>· TensorFlow</small></span></li>
+                    <li class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path
+                                d="M12 3l2.2 1.6 2.7-.1.9 2.6 2.2 1.6-.8 2.6.8 2.6-2.2 1.6-.9 2.6-2.7-.1L12 21l-2.2-1.6-2.7.1-.9-2.6L4 15.3l.8-2.6L4 10.1l2.2-1.6.9-2.6 2.7.1L12 3z" />
+                            <path d="M9 12l2 2 4-4" />
+                        </svg><span>Machine Learning DevOps Engineer Nanodegree <small>· Udacity</small></span></li>
+                    <li class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path
+                                d="M12 3l2.2 1.6 2.7-.1.9 2.6 2.2 1.6-.8 2.6.8 2.6-2.2 1.6-.9 2.6-2.7-.1L12 21l-2.2-1.6-2.7.1-.9-2.6L4 15.3l.8-2.6L4 10.1l2.2-1.6.9-2.6 2.7.1L12 3z" />
+                            <path d="M9 12l2 2 4-4" />
+                        </svg><span>TensorFlow: Data and Deployment Specialization <small>· Coursera</small></span></li>
+                    <li class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M3 9l9-5 9 5-9 5-9-5z" />
+                            <path d="M7 11.2V16c0 1.1 2.2 3 5 3s5-1.9 5-3v-4.8M21 9v5" />
+                        </svg><span>Bangkit 2021, Machine Learning Specialization <small>· Google, GoTo &amp;
+                                Traveloka</small></span></li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="experience" aria-labelledby="exp-h">
+            <div class="wrap">
+                <div class="sec-head">
+                    <div>
+                        <h2 class="sec" id="exp-h">Experience</h2>
+                        <p class="sub">From teaching machine learning to thousands of learners, to shipping LLM agents
+                            and data platforms inside some of Indonesia's largest enterprises.</p>
+                    </div>
+                </div>
+                <ol class="timeline">
+
+                    <li class="card job">
+                        <div>
+                            <div class="when">Present</div>
+                            <span class="current-label"><span class="status-dot" aria-hidden="true"></span>Current
+                                Role</span>
+                        </div>
+                        <div>
+                            <h3>Senior AI Developer</h3>
+                            <p class="org">ESSA Industries Indonesia</p>
+                        </div>
+                    </li>
+
+                    <li class="card job">
+                        <div>
+                            <div class="when">Oct 2025 – 2026</div>
+                        </div>
+                        <div>
+                            <h3>AI Learning Engineer</h3>
+                            <p class="org">PT Lippo Malls Indonesia</p>
+                            <ul>
+                                <li>Managed and optimized <b>production-scale, on-premise serving</b> of multiple
+                                    open-source LLMs using <b>vLLM</b> for high-throughput, low-latency inference.</li>
+                                <li>Designed and deployed a <b>multi-agent system</b> for an AI Leasing Assistant
+                                    (LangGraph), enabling 24/7 automated client responses and report generation for
+                                    high-value leads.</li>
+                                <li>Engineered an <b>AI-powered HVAC optimization</b> system that combines real-time IoT
+                                    sensor data with predictive ML models, delivering measurable energy savings and
+                                    lower operational costs.</li>
+                                <li>Built an <b>agentic RAG chatbot</b> grounded in internal knowledge bases (SOPs,
+                                    regulations) using LangGraph and Qdrant, significantly improving employee
+                                    information retrieval accuracy.</li>
+                                <li>Architected a <b>multi-tiered conversation memory system</b>: Redis for short-term
+                                    context and Qdrant for long-term retrieval, improving chat coherence across
+                                    sessions.</li>
+                                <li>Applied an <b>LLM-as-a-Judge</b> evaluation framework to rigorously assess AI output
+                                    quality and ensure regulatory compliance.</li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="card job">
+                        <div>
+                            <div class="when">Sep 2023 – Sep 2025</div>
+                        </div>
+                        <div>
+                            <h3>Data &amp; Machine Learning Engineer</h3>
+                            <p class="org">PT Pupuk Indonesia (Persero)</p>
+                            <ul>
+                                <li>Developed an <b>AI-powered employee onboarding system</b> using LangChain and
+                                    Qdrant, reducing onboarding friction and improving access to information for new
+                                    hires.</li>
+                                <li>Deployed open-source <b>LLMs on Google Cloud Run with Ollama</b>, balancing cost
+                                    efficiency with scalability for internal use cases.</li>
+                                <li>Built and maintained <b>CI/CD pipelines</b> for automated deployment of multiple
+                                    ML-serving APIs, cutting time-to-production for data science projects.</li>
+                                <li>Leveraged <b>GCP services</b> to deploy and maintain ML solutions with high
+                                    availability and horizontal scalability.</li>
+                                <li>Designed a data ingestion pipeline with <b>Prefect and Apache Kafka</b> streaming
+                                    data from multiple sources into <b>Snowflake</b>.</li>
+                                <li>Developed <b>data models in Snowflake using dbt</b>, enabling reliable analytics and
+                                    self-serve reporting for business stakeholders.</li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="card job">
+                        <div>
+                            <div class="when">Oct 2021 – Sep 2023</div>
+                        </div>
+                        <div>
+                            <h3>Machine Learning Curriculum Developer</h3>
+                            <p class="org">Dicoding Indonesia</p>
+                            <ul>
+                                <li>Designed and maintained a suite of <b>data science and machine learning
+                                        courses</b>, improving curriculum quality and measurable student engagement.
+                                </li>
+                                <li>Applied <b>NLP-based sentiment analysis</b> to student feedback to surface
+                                    actionable insights that directly informed curriculum improvements.</li>
+                            </ul>
+                        </div>
+                    </li>
+
+                </ol>
+            </div>
+        </section>
+
+        <section id="projects" aria-labelledby="proj-h">
+            <div class="wrap">
+                <div class="sec-head">
+                    <div>
+                        <h2 class="sec" id="proj-h">Projects</h2>
+                        <p class="sub">Selected systems I've designed and shipped. Most are internal to the companies
+                            I built them for; happy to walk through the architecture on request.</p>
+                    </div>
+                </div>
+                <div class="grid">
+                    <article class="card lift">
+                        <div class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="6" cy="6" r="2.5" />
+                                <circle cx="18" cy="6" r="2.5" />
+                                <circle cx="12" cy="18" r="2.5" />
+                                <path d="M8.2 7.2l2.6 8.6M15.8 7.2l-2.6 8.6M8.5 6h7" />
+                            </svg></div>
+                        <h3>AI Leasing Assistant</h3>
+                        <p class="where">Lippo Malls Indonesia</p>
+                        <p>A LangGraph multi-agent system that answers leasing clients around the clock and generates
+                            reports for high-value leads.</p>
+                        <ul class="tags">
+                            <li class="tag">LangGraph</li>
+                            <li class="tag">Multi-agent</li>
+                            <li class="tag">vLLM</li>
+                        </ul>
+                    </article>
+                    <article class="card lift">
+                        <div class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 5h16v11H9l-5 4V5z" />
+                                <path d="M8 9.5h8M8 12.5h5" />
+                            </svg></div>
+                        <h3>Agentic RAG Knowledge Assistant</h3>
+                        <p class="where">Lippo Malls Indonesia</p>
+                        <p>An agentic RAG chatbot grounded in SOPs and regulations, with Redis short-term and Qdrant
+                            long-term memory, evaluated with LLM-as-a-Judge.</p>
+                        <ul class="tags">
+                            <li class="tag">Agentic RAG</li>
+                            <li class="tag">Qdrant</li>
+                            <li class="tag">Redis</li>
+                            <li class="tag">LLM-as-a-Judge</li>
+                        </ul>
+                    </article>
+                    <article class="card lift">
+                        <div class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9" />
+                                <path d="M10 4.5L12 6l2-1.5M10 19.5L12 18l2 1.5" />
+                            </svg></div>
+                        <h3>HVAC Energy Optimization</h3>
+                        <p class="where">Lippo Malls Indonesia</p>
+                        <p>Predictive ML models on real-time IoT sensor data that tune HVAC operation for measurable
+                            energy savings and lower operating costs.</p>
+                        <ul class="tags">
+                            <li class="tag">IoT</li>
+                            <li class="tag">Predictive ML</li>
+                            <li class="tag">Optimization</li>
+                        </ul>
+                    </article>
+                    <article class="card lift">
+                        <div class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="8" r="3.5" />
+                                <path d="M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5" />
+                            </svg></div>
+                        <h3>AI Employee Onboarding</h3>
+                        <p class="where">Pupuk Indonesia</p>
+                        <p>A LangChain and Qdrant assistant that gives new hires fast, grounded answers, backed by
+                            open-source LLMs served with Ollama on Cloud Run.</p>
+                        <ul class="tags">
+                            <li class="tag">LangChain</li>
+                            <li class="tag">Ollama</li>
+                            <li class="tag">Cloud Run</li>
+                        </ul>
+                    </article>
+                    <article class="card lift">
+                        <div class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <ellipse cx="12" cy="6" rx="7" ry="2.5" />
+                                <path
+                                    d="M5 6v6c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5V6M5 12v6c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5v-6" />
+                            </svg></div>
+                        <h3>Streaming Data Platform</h3>
+                        <p class="where">Pupuk Indonesia</p>
+                        <p>Prefect and Kafka ingestion from multiple sources into Snowflake, modeled with dbt for
+                            reliable, self-serve analytics.</p>
+                        <ul class="tags">
+                            <li class="tag">Kafka</li>
+                            <li class="tag">Prefect</li>
+                            <li class="tag">Snowflake</li>
+                            <li class="tag">dbt</li>
+                        </ul>
+                    </article>
+                    <article class="card lift">
+                        <div class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M7 15a4 4 0 0 1-.5-8A5.5 5.5 0 0 1 17 7.5a3.8 3.8 0 0 1 0 7.5" />
+                                <path d="M8 18l-1 2M12 18l-1 2M16 18l-1 2" />
+                            </svg></div>
+                        <h3>Flood Disaster Warning System</h3>
+                        <p class="where">Bangkit 2021 capstone</p>
+                        <p>A team capstone that applies deep learning to early warning for flood disasters, built during
+                            the Bangkit machine learning program.</p>
+                        <ul class="tags">
+                            <li class="tag">TensorFlow</li>
+                            <li class="tag">Deep learning</li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="achievements" aria-labelledby="ach-h">
+            <div class="wrap">
+                <div class="sec-head">
+                    <div>
+                        <h2 class="sec" id="ach-h">Achievements</h2>
+                        <p class="sub">Innovation awards and teaching.</p>
+                    </div>
+                </div>
+                <ul class="awards">
+                    <li class="card award">
+                        <span class="award-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M8 4h8v5a4 4 0 0 1-8 0V4zM8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8.5 20h7M10 17h4" />
+                            </svg></span>
+                        <div>
+                            <h3>Best Innovation</h3>
+                            <p>Pupuk Indonesia Innovation Awards</p>
+                        </div>
+                        <span class="yr">2025</span>
+                    </li>
+                    <li class="card award">
+                        <span class="award-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="15" r="5" />
+                                <path
+                                    d="M9 10.5L6 3h4l2 4 2-4h4l-3 7.5M12 12.8l.7 1.5 1.6.2-1.2 1.1.3 1.6-1.4-.8-1.4.8.3-1.6-1.2-1.1 1.6-.2z" />
+                            </svg></span>
+                        <div>
+                            <h3>Platinum Award</h3>
+                            <p>TKMPN National Innovation</p>
+                        </div>
+                        <span class="yr">2024</span>
+                    </li>
+                    <li class="card award">
+                        <span class="award-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 19c0-8 5-14 15-14 0 10-6 15-14 15" />
+                                <path d="M5 19c3-4 6-7 10-9" />
+                            </svg></span>
+                        <div>
+                            <h3>Best Sustainability</h3>
+                            <p>Pupuk Indonesia Innovation Awards</p>
+                        </div>
+                        <span class="yr">2024</span>
+                    </li>
+                    <li class="card award">
+                        <span class="award-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 9l9-5 9 5-9 5-9-5z" />
+                                <path d="M7 11.2V16c0 1.1 2.2 3 5 3s5-1.9 5-3v-4.8M21 9v5" />
+                            </svg></span>
+                        <div>
+                            <h3>Machine Learning Instructor</h3>
+                            <p>Bangkit Academy, led by Google, GoTo &amp; Traveloka</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="writing" aria-labelledby="writing-h">
+            <div class="wrap">
+                <div class="sec-head">
+                    <div>
+                        <h2 class="sec" id="writing-h">Writing</h2>
+                        <p class="sub">Notes from building production AI: APIs, agents, and retrieval.</p>
+                    </div>
+                    <a class="btn" href="https://rfajri.medium.com/" target="_blank" rel="noopener">All Articles on
+                        Medium <span aria-hidden="true">↗</span></a>
+                </div>
+                <div class="grid writing-grid">
+                    <a class="card feature"
+                        href="https://rfajri.medium.com/fastapi-for-ai-systems-how-i-build-apis-that-reliable-maintainable-2a905becb3cc"
+                        target="_blank" rel="noopener">
+                        <p class="kicker">Featured · Engineering</p>
+                        <h3>FastAPI for AI Systems: How I Build APIs That Are Reliable &amp; Maintainable</h3>
+                        <p>How I structure FastAPI services that sit in front of models and agents, so they stay
+                            reliable under real traffic and easy to change as the AI underneath evolves.</p>
+                        <ul class="tags">
+                            <li class="tag">FastAPI</li>
+                            <li class="tag">Python</li>
+                            <li class="tag">API design</li>
+                        </ul>
+                        <span class="read-more">Read on Medium <span aria-hidden="true">↗</span></span>
+                    </a>
+                    <a class="card"
+                        href="https://rfajri.medium.com/google-adk-part-1-getting-started-building-your-first-agent-02030c582055"
+                        target="_blank" rel="noopener">
+                        <p class="kicker">Series · Agents</p>
+                        <h3>Learning Google Agent Development Kit (ADK)</h3>
+                        <p>A multi-part series on Google's ADK, starting from building your first agent.</p>
+                        <span class="read-more">Start with Part 1 <span aria-hidden="true">↗</span></span>
+                    </a>
+                    <a class="card" href="https://rfajri.medium.com/introduction-to-vector-databases-c0a4a855765d"
+                        target="_blank" rel="noopener">
+                        <p class="kicker">Fundamentals · Retrieval</p>
+                        <h3>Introduction to Vector Databases</h3>
+                        <p>What vector databases are, how they store and search embeddings, and why they sit at the
+                            heart of RAG systems.</p>
+                        <span class="read-more">Read on Medium <span aria-hidden="true">↗</span></span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" aria-labelledby="skills-h">
+            <div class="wrap two">
+                <div>
+                    <h2 class="col-title" id="skills-h">Skills</h2>
+                    <div class="group">
+                        <div class="group-row">
+                            <h3>Generative AI &amp; Agents</h3>
+                            <ul class="tags">
+                                <li class="tag">Multi-agent systems</li>
+                                <li class="tag">Agentic RAG</li>
+                                <li class="tag">LangGraph</li>
+                                <li class="tag">LangChain</li>
+                                <li class="tag">Google ADK</li>
+                                <li class="tag">LLM-as-a-Judge</li>
+                                <li class="tag">Conversation memory</li>
+                            </ul>
+                        </div>
+                        <div class="group-row">
+                            <h3>LLM Serving &amp; MLOps</h3>
+                            <ul class="tags">
+                                <li class="tag">vLLM</li>
+                                <li class="tag">Ollama</li>
+                                <li class="tag">FastAPI</li>
+                                <li class="tag">CI/CD</li>
+                                <li class="tag">Docker</li>
+                                <li class="tag">Google Cloud Platform</li>
+                                <li class="tag">Cloud Run</li>
+                            </ul>
+                        </div>
+                        <div class="group-row">
+                            <h3>Machine Learning</h3>
+                            <ul class="tags">
+                                <li class="tag">TensorFlow</li>
+                                <li class="tag">Deep learning</li>
+                                <li class="tag">NLP</li>
+                                <li class="tag">Predictive modeling</li>
+                            </ul>
+                        </div>
+                        <div class="group-row">
+                            <h3>Data &amp; Storage</h3>
+                            <ul class="tags">
+                                <li class="tag">Python</li>
+                                <li class="tag">SQL &amp; NoSQL</li>
+                                <li class="tag">Snowflake</li>
+                                <li class="tag">dbt</li>
+                                <li class="tag">Apache Kafka</li>
+                                <li class="tag">Prefect</li>
+                                <li class="tag">Qdrant</li>
+                                <li class="tag">Redis</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div id="education">
+                    <h2 class="col-title" id="edu-h">Education</h2>
+                    <div class="group" role="list" aria-labelledby="edu-h">
+                        <div class="group-row edu-row" role="listitem">
+                            <h3>Brawijaya University</h3>
+                            <span class="meta">B.Sc. in Computational Physics · GPA 3.54/4.0</span>
+                            <span class="meta-2">Aug 2017 – Jul 2021</span>
+                        </div>
+                        <div class="group-row edu-row" role="listitem">
+                            <h3>Bangkit Academy 2021</h3>
+                            <span class="meta">Machine Learning Specialization · led by Google, GoTo &amp;
+                                Traveloka</span>
+                            <span class="meta-2">Feb – Jul 2021</span>
+                            <p>Selective, industry-led program on TensorFlow development and deep learning, capped by a
+                                team capstone building a Flood Disaster Warning System.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" aria-labelledby="contact-h">
+            <div class="wrap">
+                <div class="contact-card">
+                    <div>
+                        <h2 class="sec" id="contact-h">Let's build something.</h2>
+                        <p class="sub">Open to conversations about LLM systems, agentic AI, and MLOps.</p>
+                    </div>
+                    <div class="cta">
+                        <a class="btn primary" href="mailto:rfajri912@gmail.com">rfajri912@gmail.com</a>
+                        <a class="btn" href="https://www.linkedin.com/in/rfajri912" target="_blank"
+                            rel="noopener">LinkedIn</a>
+                        <a class="btn" href="https://github.com/rfajri27" target="_blank" rel="noopener">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="wrap site-footer__inner">
+            <span>&copy; <span id="year">2026</span> Rahmat Fajri</span>
+            <nav class="site-footer__links" aria-label="Footer">
+                <a href="https://rfajri.medium.com/" target="_blank" rel="me noopener">Medium</a>
+                <a href="https://www.linkedin.com/in/rfajri912" target="_blank" rel="me noopener">LinkedIn</a>
+                <a href="https://github.com/rfajri27" target="_blank" rel="me noopener">GitHub</a>
+                <a href="#top">Back to Top</a>
+            </nav>
+        </div>
+    </footer>
+
+    <script>
+        (() => {
+            document.getElementById('year').textContent = new Date().getFullYear();
+
+            const menu = document.querySelector('.site-menu');
+            const pill = menu.querySelector('.nav-pill');
+            const links = [...menu.querySelectorAll('a')];
+            const sections = links.map(a => document.querySelector(a.getAttribute('href')));
+            const compact = matchMedia('(max-width:720px)');
+
+            function movePill(link) {
+                if (!link || compact.matches) { pill.style.opacity = 0; return; }
+                pill.style.width = link.offsetWidth + 'px';
+                pill.style.transform = `translateX(${link.offsetLeft}px)`;
+                pill.style.opacity = 1;
+            }
+
+            function setCurrent(link) {
+                links.forEach(a => a === link ? a.setAttribute('aria-current', 'location') : a.removeAttribute('aria-current'));
+                movePill(link);
+            }
+
+            // The current section is the last one whose top has passed a line a third of the way down
+            function update() {
+                const line = innerHeight / 3;
+                let current = null;
+                sections.forEach((s, i) => { if (s && s.getBoundingClientRect().top <= line) current = links[i]; });
+                // Credentials sits between the hero and Experience, so it shares Experience's tab
+                if (!current && document.getElementById('certs').getBoundingClientRect().top <= line) current = links[0];
+                if (innerHeight + scrollY >= document.documentElement.scrollHeight - 4) current = links[links.length - 1];
+                setCurrent(current);
+            }
+
+            let ticking = false;
+            addEventListener('scroll', () => {
+                if (!ticking) { requestAnimationFrame(() => { update(); ticking = false; }); ticking = true; }
+            }, { passive: true });
+            addEventListener('resize', update);
+            compact.addEventListener('change', update);
+            update();
+        })();
+    </script>
+</body>
+
+</html>
